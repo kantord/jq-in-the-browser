@@ -23,16 +23,35 @@ const tests_node_jq = [
 
   ['Generic Object Index', ['.["foo"]', '.["bar"].x', '.bar["y"]', '.["2bar"]', '.["a b"]'], [
     fixtures[0], fixtures[1],
-  ]]
+  ]],
+
+  ['Pipe', ['.a | .b', '.a|.b'], [
+    {'a': {'b': 4}}, {'a': {'b': 'oo'}},
+  ]],
+
+  ['Array Construction', ['[]', '[4]', '[-6, [0]]', '[7 | 4]', '[.]', '[. | [6]]', '[5, 6] | .'], [[1], {'a': 'a'}]],
+  ['Object Construction', ['{}', '{"foo": 6}', '{"foo": 6, "bar": [5, 3]}', '{"x": 3} | {"y": .x}'], [[1], {'a': 'a'}]],
+  ['Integer literal', ['3', '6', '-4', '0'], [[1], {'a': 'a'}]],
+  ['Float literal', ['.3', '6.0', '-4.001', '3.14'], [[1], {'a': 'a'}]],
+  ['Boolean literal', ['true', 'false'], [[1], {'a': 'a'}]],
+  ['String literal', ['"true"', '"false"', '"foo"', '["bar"]', '["bar\"foo\\baz"]'], [[1], {'a': 'a'}]],
+  ['length', ['[] | length', 'length', ], [[], [1], [3, [3]]]],
+  ['keys', ['keys', ], [{}, {'a': 3}, {'b': {'a': 3}, 'a': null}]],
+  ['keys_unsorted', ['keys_unsorted', ], [{}, {'a': 3}, {'b': {'a': 3}, 'a': null}]],
 ]
 
 const tests_jq_web = [
+  ['Array Construction', ['[]', '[4]'], [[1], {'a': 'a'}]],
   ['Array/Object Value Iterator', ['.[]'], [
     [1, -1], ["foo"], {'foo': 1, 'bar': -5.3}, {'foo': []}
   ]],
 
   ['Array/Object Value Iterator 2', ['.["foo"][]', '.foo[]'], [
     {'foo': [3, 3]}
+  ]],
+
+  ['Pipe', ['.[] | .b'], [
+    {'a': {'b': 4}}, {'a': {'b': 'oo'}},
   ]]
 ]
 
