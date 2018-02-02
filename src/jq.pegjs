@@ -1,5 +1,10 @@
 {
     const _ = require('lodash')
+    const construct_pair = (key, value) => input => {
+        let obj = {};
+        obj[key] = value(input);
+        return obj;
+    }
 }
 
 value
@@ -94,13 +99,10 @@ object_inside
     / pair:pair {return input => pair(input)}
 
 pair
-    = '"' key:double_quote_string_core '"' _ ':' _ value:value {
-        return input => {
-            let obj = {};
-            obj[key] = value(input);
-            return obj;
-        }
-    }
+    = '"' key:double_quote_string_core '"' _ ':' _ value:value {return construct_pair(key, value)}
+    / "'" key:single_quote_string_core "'" _ ':' _ value:value {return construct_pair(key, value)}
+    / "(" _ key:value _  ")" _ ':' _ value:value {return input => construct_pair(key(input), value)(input)}
+    / key:name _ ':' _ value:value {return construct_pair(key, value)}
 
 float_literal
     = "-" number:float_literal {return input => -number(input)}

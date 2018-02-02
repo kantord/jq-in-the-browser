@@ -45,7 +45,10 @@ const tests_node_jq = [
     '.a / .b', '.b / .a', '4/ 3', '-3/(4)', '-1.1 + (3 * (((.4 - .b) / .a) + .b))'
   ], [{'a': 3, 'b': -1.1}, {'a': -3, 'b': 1.1}]],
   ['Array Construction', ['[]', '[4]', '[-6, [0]]', '[7 | 4]', '[.]', '[. | [6]]', '[5, 6] | .'], [[1], {'a': 'a'}]],
-  ['Object Construction', ['{}', '{"foo": 6}', '{"foo": 6, "bar": [5, 3]}', '{"x": 3} | {"y": .x}'], [[1], {'a': 'a'}]],
+  ['Object Construction', [
+    '{}', '{"foo": 6}', '{"foo": 6, "bar": [5, 3]}', '{"x": 3} | {"y": .x}',
+    '{foo: "bar"}', '{({"a": "b"} | .a): true}'
+  ], [[1], {'a': 'a'}]],
   ['Integer literal', ['3', '6', '-4', '0', '8'], [[1], {'a': 'a'}]],
   ['Float literal', ['.3', '6.0', '-4.001', '3.14', '0.1'], [[1], {'a': 'a'}]],
   ['Boolean literal', ['true', 'false'], [[1], {'a': 'a'}]],
@@ -104,7 +107,11 @@ tests_node_jq.forEach(([feature, queries, inputs]) => {
 
 
 describe('Single quote String literal', () => {
-  it('', () => {
+  it('per se', () => {
     assert.equal(parser("'Hello \"World\"!'")(null), 'Hello "World"!')
+  })
+
+  it('as key', () => {
+    assert.deepEqual(parser("{'a': false}")(null), {'a': false})
   })
 })
