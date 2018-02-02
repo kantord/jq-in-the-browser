@@ -18,10 +18,11 @@ additive
     / multiplicative
 
 multiplicative
-    = left:pipeline right:((_ ('*'/ '/') _ pipeline)+) {return input => {
+    = left:pipeline right:((_ ('*'/ '/' / '%') _ pipeline)+) {return input => {
         const f = (k) => ({
             '*': (a, b) => a * b,
             '/': (a, b) => a / b,
+            '%': (a, b) => a % b,
         }[k])
         return right.reduce(
             (result, element) => f(element[1])(result, element[3](input)),
