@@ -1,2 +1,2 @@
 start
-  = .* {return (function() {return 0})}
+    = "." {return function(input) {return input}}
