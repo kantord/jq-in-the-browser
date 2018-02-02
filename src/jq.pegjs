@@ -2,8 +2,10 @@
     const _ = require('lodash')
 }
 
-start
-    = pipeline
+value
+    = left:pipeline _ '-' _ right:value {return input => (left(input) - right(input))}
+    / left:pipeline _ '+' _ right:value {return input => (left(input) + right(input))}
+    / pipeline
 
 _
     = [ ]*
@@ -20,13 +22,17 @@ head_filter
     / array_construction
     / object_construction
     / integer_literal
-    / string_literal
+    / single_quote_string_literal
+    / double_quote_string_literal
     / length
     / keys_unsorted
     / keys
 
-string_literal
-    = '"' core:string_core '"' {return input => core}
+double_quote_string_literal
+    = '"' core:double_quote_string_core '"' {return input => core}
+
+single_quote_string_literal
+    = '\'' core:single_quote_string_core '\'' {return input => core}
 
 boolean_literal
     = true
@@ -56,15 +62,15 @@ object_construction
     / "{" object_inside:object_inside "}" {return input => object_inside(input)}
 
 array_inside
-    = left:pipeline _ "," _ right:array_inside {return input => [left(input)].concat(right(input))}
-    / pipeline:pipeline {return input => [pipeline(input)]}
+    = left:value _ "," _ right:array_inside {return input => [left(input)].concat(right(input))}
+    / value:value {return input => [value(input)]}
 
 object_inside
     = left:pair _ "," _ right:object_inside {return input => Object.assign(left(input), right(input))}
     / pair:pair {return input => pair(input)}
 
 pair
-    = '"' key:string_core '"' _ ':' _ value:pipeline {
+    = '"' key:double_quote_string_core '"' _ ':' _ value:value {
         return input => {
             let obj = {};
             obj[key] = value(input);
@@ -73,7 +79,7 @@ pair
     }
 
 float_literal
-    = "-"? ([0-9]*) "." ([0-9]+) {return input => text() * 1}
+    = "-"? ([0-9]*) "." ([0-9]+) {const v = (text() * 1); return input => v}
 
 integer_literal
     = "-" number:([0-9]+) {return input => number.join() * -1}
@@ -107,7 +113,7 @@ bracket_transforms
             return input
         }
     }
-    / '["' key:string_core '"]' {return i => i[key]}
+    / '["' key:double_quote_string_core '"]' {return i => i[key]}
     / "[" index:index "]" {return i => i[index]}
     / "[-" index:index "]" {return i => i[i.length - index]}
 
@@ -117,11 +123,17 @@ identity
 object_identifier_index
     = "." name:name {return x => x[name]}
 
-string_core
-    = string_char* {return text()}
+double_quote_string_core
+    = double_quote_string_char* {return text()}
 
-string_char
+double_quote_string_char
     = [^"] {return text()}
+
+single_quote_string_core
+    = single_quote_string_char* {return text()}
+
+single_quote_string_char
+    = [^\'] {return text()}
 
 name
     = name:([a-zA-Z_$][0-9a-zA-Z_$]*) {return text()}

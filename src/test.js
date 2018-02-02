@@ -29,12 +29,13 @@ const tests_node_jq = [
     {'a': {'b': 4}}, {'a': {'b': 'oo'}},
   ]],
 
+  ['Addition (numbers)', ['1 + 1', '.a + [.b][0]', '.b + .a', '3 + 4.1 + .a'], [{'a': 3, 'b': 0}, {'a': -3, 'b': 1.1}]],
   ['Array Construction', ['[]', '[4]', '[-6, [0]]', '[7 | 4]', '[.]', '[. | [6]]', '[5, 6] | .'], [[1], {'a': 'a'}]],
   ['Object Construction', ['{}', '{"foo": 6}', '{"foo": 6, "bar": [5, 3]}', '{"x": 3} | {"y": .x}'], [[1], {'a': 'a'}]],
   ['Integer literal', ['3', '6', '-4', '0'], [[1], {'a': 'a'}]],
   ['Float literal', ['.3', '6.0', '-4.001', '3.14'], [[1], {'a': 'a'}]],
   ['Boolean literal', ['true', 'false'], [[1], {'a': 'a'}]],
-  ['String literal', ['"true"', '"false"', '"foo"', '["bar"]', '["bar\"foo\\baz"]'], [[1], {'a': 'a'}]],
+  ['Double quote String literal', ['"true"', '"false"', '"foo"', '["ba\'r"]',], [[1], {'a': 'a'}]],
   ['length', ['[] | length', 'length', ], [[], [1], [3, [3]]]],
   ['keys', ['keys', ], [{}, {'a': 3}, {'b': {'a': 3}, 'a': null}]],
   ['keys_unsorted', ['keys_unsorted', ], [{}, {'a': 3}, {'b': {'a': 3}, 'a': null}]],
@@ -87,3 +88,9 @@ tests_node_jq.forEach(([feature, queries, inputs]) => {
   )
 })
 
+
+describe('Single quote String literal', () => {
+  it('', () => {
+    assert.equal(parser("'Hello \"World\"!'")(null), 'Hello "World"!')
+  })
+})
