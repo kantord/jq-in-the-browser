@@ -3,14 +3,28 @@
 }
 
 value
-    = "(" _ value:value _ ")" {return value}
-    / left:pipeline right:((_ ('+'/ '-') _ value)+) {return input => {
+    = additive
+
+additive
+    = left:multiplicative right:((_ ('+'/ '-') _ additive)+) {return input => {
         const f = (k) => ({
             '+': (a, b) => a + b,
             '-': (a, b) => a - b,
         }[k])
         return right.reduce(
-            (result, element) => {console.log(result, element, element[3](input)); return f(element[1])(result, element[3](input))},
+            (result, element) => f(element[1])(result, element[3](input)),
+            left(input))
+    }}
+    / multiplicative
+
+multiplicative
+    = left:pipeline right:((_ ('*'/ '/') _ pipeline)+) {return input => {
+        const f = (k) => ({
+            '*': (a, b) => a * b,
+            '/': (a, b) => a / b,
+        }[k])
+        return right.reduce(
+            (result, element) => f(element[1])(result, element[3](input)),
             left(input))
     }}
     / pipeline
@@ -19,7 +33,8 @@ _
     = [ ]*
 
 pipeline
-    = left:filter _ "|" _ right:pipeline {return input => right(left(input))}
+    = "(" _ pipeline:value _ ")" {return pipeline}
+    / left:filter _ "|" _ right:pipeline {return input => right(left(input))}
     / filter
 
 head_filter
@@ -88,12 +103,10 @@ pair
 
 float_literal
     = "-" number:float_literal {return input => -number(input)}
-    / "+" number:float_literal {return number}
     / ([0-9]*) "." ([0-9]+) {const v = (text() * 1); return input => v}
 
 integer_literal
     = "-" number:integer_literal {return input => -number(input)}
-    / "+" number:integer_literal {return number}
     / number:([0-9]+) {return input => number.join() * 1}
 
 filter
