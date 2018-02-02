@@ -8,7 +8,7 @@
 }
 
 value
-    = additive
+    = _ additive:additive _ {return input => additive(input)}
 
 additive
     = left:multiplicative right:((_ ('+'/ '-') _ additive)+) {return input => {
@@ -83,11 +83,11 @@ keys_unsorted
     = "keys_unsorted" {return input => Object.keys(input)}
 
 array_construction
-    = "[]" {return input => []}
+    = "[" _ "]" {return input => []}
     / "[" array_inside:array_inside "]" {return input => array_inside(input)}
 
 object_construction
-    = "{}" {return input => ({})}
+    = "{" _ "}" {return input => ({})}
     / "{" object_inside:object_inside "}" {return input => object_inside(input)}
 
 array_inside
@@ -124,7 +124,7 @@ transform
     / object_identifier_index
 
 bracket_transforms
-    = "[]" {
+    = "[" _ "]" {
         return function(input) {
             const handle_array = function(array) {
                 if (array.length <= 1) return array[0]
@@ -140,9 +140,10 @@ bracket_transforms
             return input
         }
     }
-    / '["' key:double_quote_string_core '"]' {return i => i[key]}
-    / "[" index:index "]" {return i => i[index]}
-    / "[-" index:index "]" {return i => i[i.length - index]}
+    / '[' _ '"' _ key:double_quote_string_core _ '"' _ ']' {return i => i[key]}
+    / '[' _ "'" _ key:single_quote_string_core _ "'" _ ']' {return i => i[key]}
+    / "[" _ index:index _ "]" {return i => i[index]}
+    / "[" _ "-" _ index:index _ "]" {return i => i[i.length - index]}
 
 identity
     = "." {return _.identity}

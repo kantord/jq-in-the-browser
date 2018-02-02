@@ -4,11 +4,11 @@ const fixtures = [
 ]
 
 const tests_node_jq = [
-  ['Identity', ['.'], [
+  ['Identity', ['.', ' .  '], [
     [4], {'foo': 'bar'}
   ]],
 
-  ['Array Index', ['.[0]', '.[1]', '.[-1]', '.[1][0]', '.[1][1].x', '.[1][1].x[0]'], [
+  ['Array Index', ['.[0]', '.[1 ]', '.[-1]', '.[ 1][0]', '.[1][1].x', '.[1][1].x[0]', '.[ -1 ]'], [
     [0, [1, {'x': ['y']}]], [1, [1, {'x': [-1.1]}], 3]
   ]],
 
@@ -16,7 +16,7 @@ const tests_node_jq = [
     fixtures[0], fixtures[1],
   ]],
 
-  ['Generic Object Index', ['.["foo"]', '.["bar"].x', '.bar["y"]', '.["2bar"]', '.["a b"]'], [
+  ['Generic Object Index', ['.["foo"]', '.["bar"].x', '.bar[ "y"]', '.["2bar"]', '.["a b" ]',], [
     fixtures[0], fixtures[1],
   ]],
 
@@ -24,12 +24,12 @@ const tests_node_jq = [
     {'a': {'b': 4}}, {'a': {'b': 'oo'}},
   ]],
 
-  ['Parentheses', ['(.a)', '((.a))', '(-1)', '(-5.5)', '(.4)', '(. | .)'], [{"a": "a"}, {"a": -5}]],
+  ['Parentheses', ['( .a)', '((.a))', '(-1 )', '(-5.5)', '(.4)', '(. | .)'], [{"a": "a"}, {"a": -5}]],
 
   ['Addition (numbers)', [
     '1 + 1', '.a + [.b][0]', '.b + .a', '3 + 4.1 + .a', '3 + (-3)',
   ], [{'a': 3, 'b': 0}, {'a': -3, 'b': 1.1}]],
-  ['Subtraction (numbers)', ['.a - .b', '.b - .a', '4- 3', '-3-(4)'], [{'a': 3, 'b': 0}, {'a': -3, 'b': 1.1}]],
+  ['Subtraction (numbers)', ['.a - .b', '.b - .a', '4- 3', '-3    -(4)'], [{'a': 3, 'b': 0}, {'a': -3, 'b': 1.1}]],
   ['Multiplication (numbers)', [
     '1 * 1', '.a * [.b][0]', '.b * .a', '3 * 4.1 * .a', '3 * (-.3)',
   ], [{'a': 3, 'b': 0}, {'a': -3, 'b': 1.1}]],
@@ -39,12 +39,12 @@ const tests_node_jq = [
   ['Division (numbers)', [
     '.a / .b', '.b / .a', '4/ 3', '-3/(4)', '-1.1 + (3 * (((.4 - .b) / .a) + .b))'
   ], [{'a': 3, 'b': -1.1}, {'a': -3, 'b': 1.1}]],
-  ['Array Construction', ['[]', '[4]', '[-6, [0]]', '[7 | 4]', '[.]', '[. | [6]]', '[5, 6] | .'], [[1], {'a': 'a'}]],
+  ['Array Construction', ['[]', '[ ]', '[4]', '[ -6, [0]]', '[7 | 4]', '[.]', '[. | [6]]', '[5, 6] | .'], [[1], {'a': 'a'}]],
   ['Object Construction', [
-    '{}', '{"foo": 6}', '{"foo": 6, "bar": [5, 3]}', '{"x": 3} | {"y": .x}',
+    '{}', '{  }', '{"foo": 6}', '{"foo": 6, "bar": [5, 3]}', '{"x": 3} | {"y": .x}',
     '{foo: "bar"}', '{({"a": "b"} | .a): true}'
   ], [[1], {'a': 'a'}]],
-  ['Integer literal', ['3', '6', '-4', '0', '8'], [[1], {'a': 'a'}]],
+  ['Integer literal', ['3', '  6', '-4', '0', '8'], [[1], {'a': 'a'}]],
   ['Float literal', ['.3', '6.0', '-4.001', '3.14', '0.1'], [[1], {'a': 'a'}]],
   ['Boolean literal', ['true', 'false'], [[1], {'a': 'a'}]],
   ['Double quote String literal', ['"true"', '"false"', '"foo"', '["ba\'r"]',], [[1], {'a': 'a'}]],
@@ -55,7 +55,7 @@ const tests_node_jq = [
 
 const tests_jq_web = [
   ['Array Construction', ['[]', '[4]'], [[1], {'a': 'a'}]],
-  ['Array/Object Value Iterator', ['.[]'], [
+  ['Array/Object Value Iterator', ['.[]', '.[ ]'], [
     [1, -1], ["foo"], {'foo': 1, 'bar': -5.3}, {'foo': []}
   ]],
 
