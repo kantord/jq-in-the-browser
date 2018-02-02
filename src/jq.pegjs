@@ -3,8 +3,16 @@
 }
 
 value
-    = left:pipeline _ '-' _ right:value {return input => (left(input) - right(input))}
-    / left:pipeline _ '+' _ right:value {return input => (left(input) + right(input))}
+    = "(" _ value:value _ ")" {return value}
+    / left:pipeline right:((_ ('+'/ '-') _ value)+) {return input => {
+        const f = (k) => ({
+            '+': (a, b) => a + b,
+            '-': (a, b) => a - b,
+        }[k])
+        return right.reduce(
+            (result, element) => {console.log(result, element, element[3](input)); return f(element[1])(result, element[3](input))},
+            left(input))
+    }}
     / pipeline
 
 _
@@ -79,10 +87,13 @@ pair
     }
 
 float_literal
-    = "-"? ([0-9]*) "." ([0-9]+) {const v = (text() * 1); return input => v}
+    = "-" number:float_literal {return input => -number(input)}
+    / "+" number:float_literal {return number}
+    / ([0-9]*) "." ([0-9]+) {const v = (text() * 1); return input => v}
 
 integer_literal
-    = "-" number:([0-9]+) {return input => number.join() * -1}
+    = "-" number:integer_literal {return input => -number(input)}
+    / "+" number:integer_literal {return number}
     / number:([0-9]+) {return input => number.join() * 1}
 
 filter
