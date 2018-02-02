@@ -21,7 +21,23 @@ transform
     / object_identifier_index
 
 bracket_transforms
-    = '["' key:string_core '"]' {return i => i[key]}
+    = "[]" {
+        return function(input) {
+            const handle_array = function(array) {
+                if (array.length <= 1) return array[0]
+                return array
+            }
+
+            if (input instanceof Array) {
+                return handle_array(input)
+            } else {
+                if (typeof input === 'object') return handle_array(Object.values(input))
+            }
+
+            return input
+        }
+    }
+    / '["' key:string_core '"]' {return i => i[key]}
     / "[" index:index "]" {return i => i[index]}
     / "[-" index:index "]" {return i => i[i.length - index]}
 

@@ -1,13 +1,14 @@
 import parser from './jq.js'
 import assert from 'assert'
-const jq = require('node-jq')
+const jq_web = require('jq-web')
+const node_jq = require('node-jq')
 
 const fixtures = [
   {'foo': [3, 1], 'bar': {'x': 3, 'y': .5}, '2bar': null, 'a b': 0},
   {'foo': [4, 1], 'bar': {'x': 3, 'y': .5}, '2bar': 1, 'a b': 'a b'},
 ]
 
-const tests = [
+const tests_node_jq = [
   ['Identity', ['.'], [
     [4], {'foo': 'bar'}
   ]],
@@ -25,14 +26,24 @@ const tests = [
   ]]
 ]
 
-tests.forEach(([feature, queries, inputs]) => {
+const tests_jq_web = [
+  ['Array/Object Value Iterator', ['.[]'], [
+    [1, -1], ["foo"], {'foo': 1, 'bar': -5.3}, {'foo': []}
+  ]],
+
+  ['Array/Object Value Iterator 2', ['.["foo"][]', '.foo[]'], [
+    {'foo': [3, 3]}
+  ]]
+]
+
+tests_jq_web.forEach(([feature, queries, inputs]) => {
   describe(feature, () =>
     queries.forEach((query) =>
       describe(`Query: ${query}`, () => {
         inputs.forEach((input) => {
-          it(`Input: ${JSON.stringify(input)}`, async () => {
+          it(`Input: ${JSON.stringify(input)}`, () => {
             const parser_result = parser(query)(input)
-            const jq_result = await jq.run(query, input, { input: 'json', output: 'json' })
+            const jq_result = jq_web(input, query)
             assert.deepEqual(parser_result, jq_result)
           })
         })
@@ -40,3 +51,20 @@ tests.forEach(([feature, queries, inputs]) => {
     )
   )
 })
+
+tests_node_jq.forEach(([feature, queries, inputs]) => {
+  describe(feature, () =>
+    queries.forEach((query) =>
+      describe(`Query: ${query}`, () => {
+        inputs.forEach((input) => {
+          it(`Input: ${JSON.stringify(input)}`, async () => {
+            const parser_result = parser(query)(input)
+            const jq_result = await node_jq.run(query, input, {input: 'json', output: 'json'})
+            assert.deepEqual(parser_result, jq_result)
+          })
+        })
+      })
+    )
+  )
+})
+
