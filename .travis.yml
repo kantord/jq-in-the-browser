@@ -5,3 +5,9 @@ install:
   - npm install
 script:
     - npm run test:travis
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+    - npx semantic-release
