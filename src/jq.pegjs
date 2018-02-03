@@ -207,6 +207,7 @@ bracket_transforms
     }
     / '[' _ '"' _ key:double_quote_string_core _ '"' _ ']' {return i => i[key]}
     / '[' _ "'" _ key:single_quote_string_core _ "'" _ ']' {return i => i[key]}
+    / "[" _ start:index _ ":" _ end:index _ "]" {return i => i.slice(start, end)}
     / "[" _ index:index _ "]" {return i => i[index]}
     / "[" _ "-" _ index:index _ "]" {return i => i[i.length - index]}
 

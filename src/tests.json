@@ -505,6 +505,11 @@
           {"id": 2, "name": "Jane", "age": 11},
           {"id": 3, "name": "John", "age": 42}
         ]
+    ]],
+    ["Array/String slice", [".[2:4]", ".[0:1]"], [
+        ["a","b","c","d","e"],
+        [0, 3, "foo", -2, false, [true]],
+        "Hello World!"
     ]]
   ]
 }
