@@ -58,4 +58,5 @@ keys_unsorted|```keys_unsorted```
 Array Construction|```[]```, ```[4]```
 Array/Object Value Iterator|```.[]```, ```.[ ]```
 Array/Object Value Iterator 2|```.["foo"][]```, ```.foo[]```
-Pipe|```.[] \| .b```
+Pipe|```.[] \| .```, ```.[] \| .name```
+Stream as object key|```{"names": .[] \| .name}```, ```{"names": .[] \| .name, "ages": .[] \| .age}```
