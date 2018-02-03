@@ -1,6 +1,6 @@
 # jq-in-the-browser
 
-jq-in-the-browser is a Javascript port of jq, currently supporting a subset of it's features.
+jq-in-the-browser is a Javascript port of jq, currently supporting a subset of it's features. [Try it online](https://runkit.com/kantord/runkit-npm-jq-in-the-browser)
 
 ## Install
 `npm install --save jq-in-the-browser`
