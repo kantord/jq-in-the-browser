@@ -493,7 +493,7 @@
         ]
       ]
     ],
-    ["Stream as object key", [
+    ["Stream as object value", [
         "{names: .[] | .name}", "{\"names\": .[] | .name, \"ages\": .[] | .age}",
         "{\"names\": .[] | .name, \"x\": 3}",
         "{\"names\": 5.4, \"x\": .[] | .age}",
