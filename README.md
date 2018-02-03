@@ -60,3 +60,4 @@ Array/Object Value Iterator|```.[]```, ```.[ ]```
 Array/Object Value Iterator 2|```.["foo"][]```, ```.foo[]```
 Pipe|```.[] \| .```, ```.[] \| .name```
 Stream as object value|```{names: .[] \| .name}```, ```{"names": .[] \| .name, "ages": .[] \| .age}```, ```{"names": .[] \| .name, "x": 3}```, ```{"names": 5.4, "x": .[] \| .age}```, ```{names: 5.4, ages: .[] \| .age, ages2: .[] \| .id}```
+Array/String slice|```.[2:4]```, ```.[0:1]```
