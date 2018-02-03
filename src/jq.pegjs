@@ -36,7 +36,13 @@
         if (left_value instanceof Stream) {
             if (right_value instanceof Stream) {
                 return left_value.product(right_value).map((a, _) => Object.assign({}, ...a))
+            } else {
+                return combine_pairs(left, i => new Stream([right(i)]), input)
             }
+        }
+
+        if (right_value instanceof Stream) {
+            return combine_pairs(right, i => new Stream([left(i)]), input)
         }
         return Object.assign(left_value, right_value)
     }
