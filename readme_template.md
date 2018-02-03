@@ -1,6 +1,6 @@
 # jq-in-the-browser
 
-jq.js is a Javascript port of jq, currently supporting a subset of it's features.
+jq-in-the-browser is a Javascript port of jq, currently supporting a subset of it's features.
 
 ## Install
 `npm install --save jq-in-the-browser`
