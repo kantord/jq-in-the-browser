@@ -1,5 +1,6 @@
 {
-    const _ = require('lodash')
+    const identity = f => f
+    const flow = funcs => funcs.reduce((result, element) => (input => element(result(input))), identity)
     const construct_pair = (key, value) => input => {
         let obj = {};
         obj[key] = value(input);
@@ -117,7 +118,7 @@ filter
     / head_filter
 
 transforms
-    = funcs:(transform +) {return input => _.flow(funcs)(input)}
+    = funcs:(transform +) {return input => flow(funcs)(input)}
 
 transform
     = bracket_transforms
@@ -146,7 +147,7 @@ bracket_transforms
     / "[" _ "-" _ index:index _ "]" {return i => i[i.length - index]}
 
 identity
-    = "." {return _.identity}
+    = "." {return identity}
 
 object_identifier_index
     = "." name:name {return x => x[name]}
