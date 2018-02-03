@@ -481,20 +481,26 @@
     [
       "Pipe",
       [
-        ".[] | .b"
+        ".[] | .", ".[] | .name"
       ],
       [
-        {
-          "a": {
-            "b": 4
-          }
-        },
-        {
-          "a": {
-            "b": "oo"
-          }
-        }
+         [
+          {"name": "Mary", "age": 22},
+          {"name": "Rupert", "age": 29},
+          {"name": "Jane", "age": 11},
+          {"name": "John", "age": 42}
+        ]
       ]
-    ]
+    ],
+    ["Stream as object key", [
+        "{\"names\": .[] | .name}", "{\"names\": .[] | .name, \"ages\": .[] | .age}"
+    ], [
+        [
+          {"name": "Mary", "age": 22},
+          {"name": "Rupert", "age": 29},
+          {"name": "Jane", "age": 11},
+          {"name": "John", "age": 42}
+        ]
+    ]]
   ]
 }
