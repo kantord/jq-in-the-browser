@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha-webpack \"src/test.js\" --webpack-config webpack.config.js",
-    "test:watch": "mocha-webpack --watch \"src/test.js\" --webpack-config webpack.config.js",
+    "test": "mocha-webpack \"src/test.js\" \"src/common_tests.js\"  --webpack-config webpack.config.js",
+    "test:travis": "mocha-webpack \"src/travis_test.js\" \"src/common_tests.js\"  --webpack-config webpack.config.js",
+    "test:watch": "mocha-webpack --watch \"src/test.js\" \"src/common_tests.js\" --webpack-config webpack.config.js",
     "build": "webpack"
   },
   "author": "",
