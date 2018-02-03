@@ -1,7 +1,7 @@
 {
-  "name": "jqjs",
-  "version": "1.0.0",
-  "description": "",
+  "name": "jq-in-the-browser",
+  "version": "0.0.0",
+  "description": "jq-compatible query language for the web",
   "main": "index.js",
   "scripts": {
     "test": "mocha-webpack \"src/test.js\" \"src/common_tests.js\"  --webpack-config webpack.config.js",
@@ -9,8 +9,8 @@
     "test:watch": "mocha-webpack --watch \"src/test.js\" \"src/common_tests.js\" --webpack-config webpack.config.js",
     "build": "webpack"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Dániel Kántor",
+  "license": "MIT",
   "devDependencies": {
     "child_process": "^1.0.2",
     "jq-web": "^0.1.3",
