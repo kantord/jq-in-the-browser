@@ -14,13 +14,14 @@
   "devDependencies": {
     "child_process": "^1.0.2",
     "jq-web": "^0.1.3",
+    "json-loader": "^0.5.7",
+    "mocha": "^5.0.0",
     "mocha-webpack": "^1.0.1",
     "node-jq": "^1.2.0",
     "pegjs": "^0.10.0",
     "pegjs-loader": "^0.5.4",
     "should": "^13.2.1",
-    "webpack": "^3.10.0",
-    "mocha": "^5.0.0"
+    "webpack": "^3.10.0"
   },
   "dependencies": {
     "lodash": "^4.17.4"
