@@ -1,13 +1,14 @@
 {
   "name": "jq-in-the-browser",
-  "version": "0.0.3",
+  "version": "0.0.0-development",
   "description": "jq-compatible query language for the web",
   "main": "lib/jq-in-the-browser.js",
   "scripts": {
     "test": "mocha-webpack \"src/test.js\" \"src/common_tests.js\"  --webpack-config webpack.test.config.js",
     "test:travis": "mocha-webpack \"src/travis_test.js\" \"src/common_tests.js\"  --webpack-config webpack.test.config.js",
     "test:watch": "mocha-webpack --watch \"src/test.js\" \"src/common_tests.js\" --webpack-config webpack.test.config.js",
-    "build": "webpack"
+    "build": "webpack",
+    "semantic-release": "semantic-release"
   },
   "author": "Dániel Kántor",
   "license": "MIT",
@@ -29,5 +30,9 @@
     "@babel/core": "^7.0.0-beta.39",
     "@babel/preset-env": "^7.0.0-beta.39",
     "babel-loader": "^8.0.0-beta.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kantord/jq-in-the-browser.js.git"
   }
 }
