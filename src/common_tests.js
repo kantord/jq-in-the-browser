@@ -36,4 +36,25 @@ describe('Other tests', () => {
     ]
     assert.deepEqual(parser(query)(input), output)
   })
+
+  it('handle example code correctly 2', () => {
+    const query = '{"names": [.[] | .name]}'
+    const input = [
+      {"name": "Mary", "age": 22},
+      {"name": "Rupert", "age": 29},
+      {"name": "Jane", "age": 11},
+      {"name": "John", "age": 42}
+    ]
+    const output = {
+      "names": [
+        "Mary",
+        "Rupert",
+        "Jane",
+        "John"
+      ]
+    }
+
+    assert.deepEqual(parser(query)(input), output)
+  })
+
 })
