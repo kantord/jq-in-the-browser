@@ -1,6 +1,6 @@
 {
   "name": "jq-in-the-browser",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "jq-compatible query language for the web",
   "main": "index.js",
   "scripts": {
