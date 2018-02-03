@@ -47,7 +47,7 @@ Multiplication (numbers)|```1 * 1```, ```.a * [.b][0]```, ```.b * .a```, ```3 * 
 Modulo (numbers)|```1 % 1```, ```.a % [.b][0]```, ```.b % .a```, ```3 % 4 % .a```
 Division (numbers)|```.a / .b```, ```.b / .a```, ```4/ 3```, ```-3/(4)```, ```-1.1 + (3 * (((.4 - .b) / .a) + .b))```
 Array Construction|```[]```, ```[ ]```, ```[4]```, ```[ -6, [0]]```, ```[7 \| 4]```, ```[.]```, ```[. \| [6]]```, ```[5, 6] \| .```
-Object Construction|```{}```, ```{  }```, ```{"foo": 6}```, ```{"foo": 6, "bar": [5, 3]}```, ```{"x": 3} \| {"y": .x}```, ```{foo: "bar"}```, ```{({"a": "b"} \| .a): true}```
+Object Construction|```{}```, ```{  }```, ```{"foo": 6}```, ```{"foo": 6, "bar": [5, 3]}```, ```{"x": 3} \| {"y": .x}```, ```{foo: "bar"}```, ```{({"a": "b"} \| .a): true}```, ```{"a": 4, "b": 3, "c": -1, "d": "f"}```
 Integer literal|```3```, ```  6```, ```-4```, ```0```, ```8```
 Float literal|```.3```, ```6.0```, ```-4.001```, ```3.14```, ```0.1```
 Boolean literal|```true```, ```false```
@@ -58,4 +58,5 @@ keys_unsorted|```keys_unsorted```
 Array Construction|```[]```, ```[4]```
 Array/Object Value Iterator|```.[]```, ```.[ ]```
 Array/Object Value Iterator 2|```.["foo"][]```, ```.foo[]```
-Pipe|```.[] \| .b```
+Pipe|```.[] \| .```, ```.[] \| .name```
+Stream as object key|```{names: .[] \| .name}```, ```{"names": .[] \| .name, "ages": .[] \| .age}```, ```{"names": .[] \| .name, "x": 3}```, ```{"names": 5.4, "x": .[] \| .age}```, ```{names: 5.4, ages: .[] \| .age, ages2: .[] \| .id}```

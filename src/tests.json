@@ -289,7 +289,8 @@
         "{\"foo\": 6, \"bar\": [5, 3]}",
         "{\"x\": 3} | {\"y\": .x}",
         "{foo: \"bar\"}",
-        "{({\"a\": \"b\"} | .a): true}"
+        "{({\"a\": \"b\"} | .a): true}",
+        "{\"a\": 4, \"b\": 3, \"c\": -1, \"d\": \"f\"}"
       ],
       [
         [
@@ -481,20 +482,29 @@
     [
       "Pipe",
       [
-        ".[] | .b"
+        ".[] | .", ".[] | .name"
       ],
       [
-        {
-          "a": {
-            "b": 4
-          }
-        },
-        {
-          "a": {
-            "b": "oo"
-          }
-        }
+         [
+          {"name": "Mary", "age": 22},
+          {"name": "Rupert", "age": 29},
+          {"name": "Jane", "age": 11},
+          {"name": "John", "age": 42}
+        ]
       ]
-    ]
+    ],
+    ["Stream as object key", [
+        "{names: .[] | .name}", "{\"names\": .[] | .name, \"ages\": .[] | .age}",
+        "{\"names\": .[] | .name, \"x\": 3}",
+        "{\"names\": 5.4, \"x\": .[] | .age}",
+        "{names: 5.4, ages: .[] | .age, ages2: .[] | .id}"
+    ], [
+        [
+          {"id": 0, "name": "Mary", "age": 22},
+          {"id": 1, "name": "Rupert", "age": 29},
+          {"id": 2, "name": "Jane", "age": 11},
+          {"id": 3, "name": "John", "age": 42}
+        ]
+    ]]
   ]
 }
