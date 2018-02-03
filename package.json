@@ -20,6 +20,7 @@
     "node-jq": "^1.2.0",
     "pegjs": "^0.10.0",
     "pegjs-loader": "^0.5.4",
+    "semantic-release": "^12.4.1",
     "should": "^13.2.1",
     "uglifyjs-webpack-plugin": "^1.1.8",
     "webpack": "^3.10.0"
