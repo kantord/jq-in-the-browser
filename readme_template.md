@@ -6,7 +6,7 @@ jq.js is a Javascript port of jq, currently supporting a subset of it's features
 `npm install --save jq-in-the-browser`
 
 ## Usage
-```
+```javascript
 import jq from 'jq-in-the-browser'
 
 const query = jq('{"names": [.[] | .name]}')
@@ -20,7 +20,7 @@ query([
 ```
 
 Output:
-```
+```json
 {
   "names": [
     "Mary",
