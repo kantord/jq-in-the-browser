@@ -56,5 +56,4 @@ describe('Other tests', () => {
 
     assert.deepEqual(parser(query)(input), output)
   })
-
 })
