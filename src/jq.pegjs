@@ -36,7 +36,13 @@
         if (left_value instanceof Stream) {
             if (right_value instanceof Stream) {
                 return left_value.product(right_value).map((a, _) => Object.assign({}, ...a))
+            } else {
+                return combine_pairs(left, i => new Stream([right(i)]), input)
             }
+        }
+
+        if (right_value instanceof Stream) {
+            return combine_pairs(right, i => new Stream([left(i)]), input)
         }
         return Object.assign(left_value, right_value)
     }
@@ -139,7 +145,7 @@ keys_unsorted
 
 array_construction
     = "[" _ "]" {return input => []}
-    / "[" array_inside:array_inside "]" {return input => array_inside(input)}
+    / "[" array_inside:array_inside "]" {return input => unpack(array_inside(input))}
 
 object_construction
     = "{" _ "}" {return input => ({})}
@@ -147,7 +153,10 @@ object_construction
 
 array_inside
     = left:value _ "," _ right:array_inside {return input => [left(input)].concat(right(input))}
-    / value:value {return input => [value(input)]}
+    / value:additive {return input => {
+        const v = value(input);
+        return (v instanceof Stream) ? unpack(v) : [v]
+    }}
 
 object_inside
     = left:pair _ "," _ right:object_inside {return input => combine_pairs(left, right, input)}
