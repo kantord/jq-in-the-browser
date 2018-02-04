@@ -64,6 +64,12 @@
         return new Stream(product(this.items, unpack(other)))
       }
     }
+
+    const function0_map = {
+      "length": input => input.length,
+      "keys": input => Object.keys(input).sort(),
+      "keys_unsorted": input => Object.keys(input)
+    }
 }
 
 value
@@ -112,9 +118,10 @@ head_filter
     / integer_literal
     / single_quote_string_literal
     / double_quote_string_literal
-    / length
-    / keys_unsorted
-    / keys
+    / function0
+
+function0
+    = name:name {return function0_map[name]}
 
 double_quote_string_literal
     = '"' core:double_quote_string_core '"' {return input => core}
@@ -132,14 +139,7 @@ true
 false
     = "false" {return input => false}
 
-length
-    = "length" {return input => input.length}
 
-keys
-    = "keys" {return input => Object.keys(input).sort()}
-
-keys_unsorted
-    = "keys_unsorted" {return input => Object.keys(input)}
 
 array_construction
     = "[" _ "]" {return input => []}
