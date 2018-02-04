@@ -76,7 +76,11 @@
     }
 
     const function1_map = {
-      "map": arg => input => input.map(i => arg(i))
+      "map": arg => input => input.map(i => arg(i)),
+      "map_values": arg => input => {
+        const pairs = Object.keys(input).map(key => ({[key]: arg(input[key])}))
+        return Object.assign({}, ...pairs)
+      }
     }
 }
 
