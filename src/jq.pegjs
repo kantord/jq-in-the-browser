@@ -88,7 +88,8 @@
         const to_entries = function0_map["to_entries"]
         const mapped = to_entries(input).map(arg)
         return from_entries(mapped)
-      }
+      },
+      "join": arg => input => input.join(arg(input))
     }
 }
 
