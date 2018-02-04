@@ -58,6 +58,9 @@ Double quote String literal|```"true"```, ```"false"```, ```"foo"```, ```["ba'r"
 length|```[] \| length```, ```length```
 keys|```keys```
 keys_unsorted|```keys_unsorted```
+to_entries|```. \| to_entries```
+from_entries|```. \| from_entries```
+reverse|```. \| reverse```
 Array Construction|```[]```, ```[4]```
 Array/Object Value Iterator|```.[]```, ```.[ ]```
 Array/Object Value Iterator 2|```.["foo"][]```, ```.foo[]```
