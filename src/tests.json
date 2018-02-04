@@ -437,6 +437,11 @@
     ], [
       [{"key": "baz", "value": false}],
       [{"key": "baz", "value": false}, {"key": "foo", "value": "bar"}]
+    ]],
+    ["reverse", [". | reverse"], [
+      [1, 2, 3, 4],
+      [3, 1, 2],
+      [3, "foo", 2, false, "bar", -3.14]
     ]]
   ],
   "tests_jq_web": [
