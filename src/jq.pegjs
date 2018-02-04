@@ -15,7 +15,6 @@
     }
     const construct_pair = (key, value) => input => {
         const value_results = value(input)
-        console.log(value_results, value_results instanceof Stream)
         if (value_results instanceof Stream) {
             return value_results.map(i => construct_pair_simple(key, f => f)(i))
         }
@@ -30,7 +29,6 @@
         [[]]);
 
     const combine_pairs = (left, right, input) => {
-        console.log(left, right, input)
         const left_value = left(input)
         const right_value = right(input)
         if (left_value instanceof Stream) {
