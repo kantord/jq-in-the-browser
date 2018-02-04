@@ -69,7 +69,9 @@
       "length": input => input.length,
       "keys": input => Object.keys(input).sort(),
       "keys_unsorted": input => Object.keys(input),
-      "to_entries": input => Object.entries(input).map(([key, value]) => ({ key, value }))
+      "to_entries": input => Object.entries(input).map(([key, value]) => ({ key, value })),
+      "from_entries": input => input.reduce(
+        (result, element) => Object.assign({}, result, {[element.key]: element.value}), {})
     }
 }
 
