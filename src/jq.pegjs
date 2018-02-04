@@ -80,6 +80,12 @@
       "map_values": arg => input => {
         const pairs = Object.keys(input).map(key => ({[key]: arg(input[key])}))
         return Object.assign({}, ...pairs)
+      },
+      "with_entries": arg => input => {
+        const from_entries = function0_map["from_entries"]
+        const to_entries = function0_map["to_entries"]
+        const mapped = to_entries(input).map(arg)
+        return from_entries(mapped)
       }
     }
 }
