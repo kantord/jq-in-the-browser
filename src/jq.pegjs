@@ -72,7 +72,8 @@
       "to_entries": input => Object.entries(input).map(([key, value]) => ({ key, value })),
       "from_entries": input => input.reduce(
         (result, element) => Object.assign({}, result, {[element.key]: element.value}), {}),
-      "reverse": input => ([].concat(input).reverse())
+      "reverse": input => ([].concat(input).reverse()),
+      "tonumber": input => input * 1
     }
 
     const function1_map = {
