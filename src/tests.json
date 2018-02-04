@@ -431,6 +431,12 @@
         {"id": 1, "name": "Rupert", "age": 29},
         {"id": 2, "name": "Jane", "age": 11},
         {"id": 3, "name": "John", "age": 42}
+    ]],
+    ["from_entries", [
+      ". | from_entries"
+    ], [
+      [{"key": "baz", "value": false}],
+      [{"key": "baz", "value": false}, {"key": "foo", "value": "bar"}]
     ]]
   ],
   "tests_jq_web": [
