@@ -74,6 +74,10 @@
         (result, element) => Object.assign({}, result, {[element.key]: element.value}), {}),
       "reverse": input => ([].concat(input).reverse())
     }
+
+    const function1_map = {
+      "map": arg => input => input.map(i => arg(i))
+    }
 }
 
 value
@@ -122,7 +126,11 @@ head_filter
     / integer_literal
     / single_quote_string_literal
     / double_quote_string_literal
+    / function1
     / function0
+
+function1
+  = name:name _ "(" _ arg:value _ ")" {return function1_map[name](arg)}
 
 function0
     = name:name {return function0_map[name]}
