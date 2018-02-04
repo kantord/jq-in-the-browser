@@ -450,6 +450,13 @@
     ["map_values", ["map_values(.+1 )", ". | map_values( {foo: .})"], [
       {"a": 4, "b": 2},
       {"a": 4, "b": -1, "c": 0}
+    ]],
+    ["with_entries", [
+      "with_entries({key: .key, value: (2 * .value)})",
+      "with_entries({key: \"a\", value: (2 * .value)})"
+    ], [
+      {"foo": 2, "bar": -1},
+      {"a": 2, "_": -1, "??": 0}
     ]]
   ],
   "tests_jq_web": [
