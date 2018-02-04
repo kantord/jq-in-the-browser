@@ -423,7 +423,15 @@
           "a": null
         }
       ]
-    ]
+    ],
+    ["to_entries", [
+      ". | to_entries"
+    ], [
+        {"id": 0, "name": "Mary", "age": 22},
+        {"id": 1, "name": "Rupert", "age": 29},
+        {"id": 2, "name": "Jane", "age": 11},
+        {"id": 3, "name": "John", "age": 42}
+    ]]
   ],
   "tests_jq_web": [
     [
