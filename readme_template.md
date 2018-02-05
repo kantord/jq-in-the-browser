@@ -3,7 +3,7 @@
 jq-in-the-browser is a JavaScript port of jq. [Try it online](https://runkit.com/kantord/runkit-npm-jq-in-the-browser)
 
 Instead of processing serialized data, jq-in-the-browser processes JavaScript
-objects. It is written from scratch and is relatively small. (~17 kB, ~5 kB gzipped)
+objects. It is written from scratch and is relatively small. (~33 kB, ~6.1 kB gzipped)
 
 ## Install
 `npm install --save jq-in-the-browser`
