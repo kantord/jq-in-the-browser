@@ -57,6 +57,50 @@ describe('Other tests', () => {
 
     assert.deepEqual(parser(query)(input), output)
   })
+
+  it('handle example code correctly 3', () => {
+    const query = '{"columns": [(sort_by(-(.calories | tonumber)) | .[] | [.name, .calories])]}'
+    const input = [
+      {
+        "name": "100% Bran",
+        "calories": "70"
+      },
+      {
+        "name": "100% Natural Bran",
+        "calories": "120"
+      },
+      {
+        "name": "All-Bran",
+        "calories": "70"
+      },
+      {
+        "name": "All-Bran with Extra Fiber",
+        "calories": "50"
+      }
+    ]    
+    const output = {
+      "columns": [
+        [
+          "100% Natural Bran",
+          "120"
+        ],
+        [
+          "100% Bran",
+          "70"
+        ],
+        [
+          "All-Bran",
+          "70"
+        ],
+        [
+          "All-Bran with Extra Fiber",
+          "50"
+        ]
+      ]
+    }
+
+    assert.deepEqual(parser(query)(input), output)
+  })
 })
 
 
