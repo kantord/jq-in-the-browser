@@ -106,6 +106,7 @@ additive
             (result, element) => f(element[1])(result, element[3](input)),
             left(input))
     }}
+    / "-" _ additive:additive {return input => 0 - additive(input)}
     / multiplicative
 
 multiplicative
@@ -126,6 +127,7 @@ _
 
 pipeline
     = "(" _ pipeline:value _ ")" {return pipeline}
+    / "-" _ "(" _ pipeline:value _ ")" {return input => 0 - pipeline(input)}
     / left:filter _ "|" _ right:pipeline {return input => mapf(right)(left(input))}
     / filter
 
