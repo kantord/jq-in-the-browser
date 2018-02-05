@@ -102,7 +102,14 @@
         const mapped = to_entries(input).map(arg)
         return from_entries(mapped)
       },
-      "join": arg => input => input.join(arg(input))
+      "join": arg => input => input.join(arg(input)),
+      "sort_by": arg => input => unpack(input).sort((a, b) => {
+        const va = arg(a)
+        const vb = arg(b)
+        if (va < vb) return -1
+        if (va > vb) return 1
+        return 0
+      })
     }
 }
 
