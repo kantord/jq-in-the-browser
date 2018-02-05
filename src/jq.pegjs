@@ -86,7 +86,8 @@
         (result, element) => Object.assign({}, result, {[element.key]: element.value}), {}),
       "reverse": input => ([].concat(input).reverse()),
       "tonumber": input => input * 1,
-      "tostring": input => ((typeof input === "object") ? JSON.stringify(input) : String(input))
+      "tostring": input => ((typeof input === "object") ? JSON.stringify(input) : String(input)),
+      "sort": input => {return unpack(input).sort()}
     }
 
     const function1_map = {
