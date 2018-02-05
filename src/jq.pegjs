@@ -65,6 +65,18 @@
       }
     }
 
+    const get_function_0 = name => {
+        const f = function0_map[name]
+        if (f === undefined) throw new Error(`function ${name}/0 is not defined`)
+        return f
+    }
+
+    const get_function_1 = name => {
+        const f = function1_map[name]
+        if (f === undefined) throw new Error(`function ${name}/1 is not defined`)
+        return f
+    }
+
     const function0_map = {
       "length": input => input.length,
       "keys": input => Object.keys(input).sort(),
@@ -145,10 +157,10 @@ head_filter
     / function0
 
 function1
-  = name:name _ "(" _ arg:value _ ")" {return function1_map[name](arg)}
+  = name:name _ "(" _ arg:value _ ")" {return get_function_1(name)(arg)}
 
 function0
-    = name:name {return function0_map[name]}
+    = name:name {return get_function_0(name)}
 
 double_quote_string_literal
     = '"' core:double_quote_string_core '"' {return input => core}
