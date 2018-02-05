@@ -3,7 +3,7 @@
 jq-in-the-browser is a JavaScript port of jq. [Try it online](https://runkit.com/kantord/runkit-npm-jq-in-the-browser)
 
 Instead of processing serialized data, jq-in-the-browser processes JavaScript
-objects. It is written from scratch and is relatively small. (~17 kB, ~5 kB gzipped)
+objects. It is written from scratch and is relatively small. (~33 kB, ~6.1 kB gzipped)
 
 ## Install
 `npm install --save jq-in-the-browser`
@@ -81,7 +81,10 @@ map_values|```map_values(.+1 )```, ```. \| map_values( {foo: .})```
 with_entries|```with_entries({key: .key, value: (2 * .value)})```, ```with_entries({key: "a", value: (2 * .value)})```
 tonumber|```tonumber```
 tostring|```tostring```
+sort|```sort```, ```[4, 5, 6] \| sort```
+sort_by|```sort_by(-.)```, ```sort_by(1 + .)```, ```sort_by(1)```
 join|```join(", ")```, ```join("")```, ```join(.[0])```
+Additive inverse|```-(1 + 3)```, ```-(-1)```, ```.a \| -(.b)```, ```[--1]```
 Array Construction|```[]```, ```[4]```
 Array/Object Value Iterator|```.[]```, ```.[ ]```
 Array/Object Value Iterator 2|```.["foo"][]```, ```.foo[]```
