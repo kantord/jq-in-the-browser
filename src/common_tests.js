@@ -1,5 +1,6 @@
 import assert from 'assert'
 import parser from './jq.js'
+import should from 'should'
 
 describe('Single quote String literal', () => {
   it('per se', () => {
@@ -56,4 +57,20 @@ describe('Other tests', () => {
 
     assert.deepEqual(parser(query)(input), output)
   })
+})
+
+
+describe('Error messages', () => {
+  const tests = [
+    ['. | foo', 'function foo/0 is not defined'],
+    ['. | bar', 'function bar/0 is not defined'],
+    ['. | bar(4)', 'function bar/1 is not defined'],
+    ['. | baz(4)', 'function baz/1 is not defined']
+  ]
+
+  tests.forEach(([query, error]) =>
+    it(`Error '${error}' for '${query}'`, () => {
+      (() => parser(query)(input)).should.throw(error)
+    })
+  )
 })
