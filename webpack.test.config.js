@@ -8,7 +8,7 @@ module.exports = {
     loaders: [
       {
         test: /\.pegjs$/,
-        loader: 'pegjs-loader?trace=false'
+        loader: 'pegjs-loader?trace=false&cache=true'
       }
     ]
   }
