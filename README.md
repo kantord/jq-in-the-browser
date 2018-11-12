@@ -1,3 +1,5 @@
+# DISCONTINUED in favor of [emuto](https://github.com/kantord/emuto)
+
 # jq-in-the-browser
 
 jq-in-the-browser is a JavaScript port of jq. [Try it online](https://runkit.com/kantord/runkit-npm-jq-in-the-browser)
